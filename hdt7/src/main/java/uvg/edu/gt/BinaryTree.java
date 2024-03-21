@@ -35,15 +35,21 @@ public class BinaryTree<E extends Comparable<E>> {
         return root;
     }
 
-    public void inOrder() {
-        inOrderRec(root);
+    public E find(E key) {
+        return findRec(root, key);
     }
 
-    private void inOrderRec(Node root) {
-        if (root != null) {
-            inOrderRec(root.left);
-            System.out.println(root.association);
-            inOrderRec(root.right);
+    private E findRec(Node root, E key) {
+        if (root == null) {
+            return null;
+        }
+        int cmp = key.compareTo(root.association.getKey());
+        if (cmp < 0) {
+            return findRec(root.left, key);
+        } else if (cmp > 0) {
+            return findRec(root.right, key);
+        } else {
+            return root.association.getValue();
         }
     }
 }
